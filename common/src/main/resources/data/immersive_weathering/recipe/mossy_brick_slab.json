@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS"
+  ],
+  "key": {
+    "S": "immersive_weathering:mossy_bricks"
+  },
+  "result": {
+    "id": "immersive_weathering:mossy_brick_slab",
+    "count": 6
+  }
+}

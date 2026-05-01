@@ -1,0 +1,44 @@
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "LGPL-3.0-or-later"
+issueTrackerURL = "https://github.com/Ordana/immersive-weathering/issues"
+
+[[mods]]
+modId = "immersive_weathering"
+version = "${version}"
+displayName = "Immersive Weathering"
+authors = "Ordana, MehVahdJukaar, Keybounce"
+logoFile = "icon.png"
+description = '''
+An abundance of new natural systems to make your world feel more alive than ever.
+'''
+
+[[mixins]]
+config = "immersive_weathering-common.mixins.json"
+
+[[mixins]]
+config = "immersive_weathering.mixins.json"
+
+[[accessTransformers]]
+file = "META-INF/accesstransformer.cfg"
+
+[[dependencies.immersive_weathering]]
+modId = "neoforge"
+type = "required"
+versionRange = "${neoforge_loader_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_weathering]]
+modId = "minecraft"
+type = "required"
+versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_weathering]]
+modId = "moonlight"
+type = "required"
+versionRange = "[${moonlight_version},)"
+ordering = "AFTER"
+side = "BOTH"

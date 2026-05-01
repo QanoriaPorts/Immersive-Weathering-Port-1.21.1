@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mossy_bricks",
+  "ingredients": [
+    "minecraft:chiseled_stone_bricks",
+    "immersive_weathering:moss_clump"
+  ],
+  "result": {
+    "id": "immersive_weathering:mossy_chiseled_stone_bricks"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:acacia_leaves"
+  },
+  "result": {
+    "id": "immersive_weathering:acacia_leaf_pile",
+    "count": 6
+  }
+}

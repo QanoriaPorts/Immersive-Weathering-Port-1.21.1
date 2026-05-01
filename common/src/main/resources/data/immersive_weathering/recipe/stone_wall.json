@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:stone"
+  },
+  "result": {
+    "id": "immersive_weathering:stone_wall",
+    "count": 6
+  }
+}

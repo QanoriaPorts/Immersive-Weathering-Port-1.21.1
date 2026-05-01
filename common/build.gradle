@@ -1,0 +1,40 @@
+architectury {
+    common(rootProject.enabled_platforms.split(","))
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/immersive_weathering.accesswidener")
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+
+    // Architectury API on the compile classpath also activates Loom's remap pipeline for common
+    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+
+    // Moonlight (Fabric API surface used at compile time in common) — version slug provisional.
+    modImplementation "maven.modrinth:moonlight:${rootProject.moonlight_version}-fabric"
+
+    modImplementation "dev.emi:emi-xplat-intermediary:${rootProject.emi_version}:api"
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = rootProject.mod_id
+            from components.java
+        }
+    }
+
+    repositories {
+        // Add repositories to publish to here.
+    }
+}
+
+repositories {
+    maven { url "https://maven.terraformersmc.com/releases" }
+    maven {
+        url "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
+}

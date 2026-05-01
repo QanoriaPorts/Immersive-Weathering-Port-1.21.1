@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": "minecraft:spruce_leaves"
+  },
+  "result": {
+    "id": "immersive_weathering:spruce_leaf_pile",
+    "count": 6
+  }
+}

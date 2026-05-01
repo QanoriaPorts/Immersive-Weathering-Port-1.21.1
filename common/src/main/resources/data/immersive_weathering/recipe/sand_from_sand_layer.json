@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "immersive_weathering:sand_layer_block"
+  },
+  "result": {
+    "id": "minecraft:sand",
+    "count": 1
+  }
+}

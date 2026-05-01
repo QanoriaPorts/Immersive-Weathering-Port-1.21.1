@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "waxed_plate_iron",
+  "ingredients": [
+    "immersive_weathering:exposed_plate_iron",
+    "#immersive_weathering:wax"
+  ],
+  "result": {
+    "id": "immersive_weathering:waxed_exposed_plate_iron"
+  }
+}

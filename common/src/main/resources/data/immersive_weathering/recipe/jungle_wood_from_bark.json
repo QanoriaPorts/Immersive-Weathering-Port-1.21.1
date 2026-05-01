@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wood_from_bark",
+  "ingredients": [
+    "immersive_weathering:jungle_bark",
+    "minecraft:jungle_log"
+  ],
+  "result": {
+    "id": "minecraft:jungle_wood"
+  }
+}

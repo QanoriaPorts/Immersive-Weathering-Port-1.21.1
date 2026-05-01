@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "immersive_weathering:weathered_iron_bars",
+  "result": {
+    "id": "minecraft:iron_nugget"
+  },
+  "experience": 0.15,
+  "cookingtime": 100
+}

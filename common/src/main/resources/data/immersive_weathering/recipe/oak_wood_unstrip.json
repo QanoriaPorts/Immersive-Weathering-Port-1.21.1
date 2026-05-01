@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wood_unstrip",
+  "ingredients": [
+    "immersive_weathering:oak_bark",
+    "minecraft:stripped_oak_wood"
+  ],
+  "result": {
+    "id": "minecraft:oak_wood"
+  }
+}

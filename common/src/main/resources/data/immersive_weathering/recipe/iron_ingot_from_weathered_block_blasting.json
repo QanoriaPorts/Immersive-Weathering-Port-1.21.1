@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": "#immersive_weathering:weathered_iron_smelting",
+  "result": {
+    "id": "minecraft:iron_ingot"
+  },
+  "experience": 0.15,
+  "cookingtime": 100
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "log_unstrip",
+  "ingredients": [
+    "immersive_weathering:spruce_bark",
+    "minecraft:stripped_spruce_log"
+  ],
+  "result": {
+    "id": "minecraft:spruce_log"
+  }
+}

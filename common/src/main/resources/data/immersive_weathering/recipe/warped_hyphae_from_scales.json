@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wood_from_bark",
+  "ingredients": [
+    "immersive_weathering:warped_scales",
+    "minecraft:warped_stem"
+  ],
+  "result": {
+    "id": "minecraft:warped_hyphae"
+  }
+}

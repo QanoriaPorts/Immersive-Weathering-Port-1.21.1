@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": "minecraft:ice"
+  },
+  "result": {
+    "id": "immersive_weathering:thin_ice",
+    "count": 4
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": "minecraft:prismarine_bricks"
+  },
+  "result": {
+    "id": "immersive_weathering:prismarine_brick_wall",
+    "count": 6
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "I#I",
+    "III"
+  ],
+  "key": {
+    "#": "immersive_weathering:moss_clump",
+    "I": "minecraft:gold_ingot"
+  },
+  "result": {
+    "id": "immersive_weathering:golden_moss_clump"
+  }
+}

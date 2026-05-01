@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "log_unstrip",
+  "ingredients": [
+    "immersive_weathering:crimson_scales",
+    "minecraft:stripped_crimson_stem"
+  ],
+  "result": {
+    "id": "minecraft:crimson_stem"
+  }
+}

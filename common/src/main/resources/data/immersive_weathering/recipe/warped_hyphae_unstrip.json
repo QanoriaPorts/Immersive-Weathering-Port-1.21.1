@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wood_unstrip",
+  "ingredients": [
+    "immersive_weathering:warped_scales",
+    "minecraft:stripped_warped_hyphae"
+  ],
+  "result": {
+    "id": "minecraft:warped_hyphae"
+  }
+}

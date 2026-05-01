@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": "minecraft:fire_coral"
+  },
+  "result": {
+    "id": "minecraft:fire_coral_block"
+  }
+}

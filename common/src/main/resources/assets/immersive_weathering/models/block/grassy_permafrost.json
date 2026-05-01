@@ -1,0 +1,9 @@
+{
+    "parent": "immersive_weathering:block/grassy_block",
+    "textures": {
+        "particle": "immersive_weathering:block/permafrost",
+        "top": "minecraft:block/grass_block_top",
+        "bottom": "immersive_weathering:block/permafrost",
+        "side": "immersive_weathering:block/grassy_permafrost_side"
+    }
+}

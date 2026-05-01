@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "wood_from_bark",
+  "ingredients": [
+    "immersive_weathering:spruce_bark",
+    "minecraft:spruce_log"
+  ],
+  "result": {
+    "id": "minecraft:spruce_wood"
+  }
+}

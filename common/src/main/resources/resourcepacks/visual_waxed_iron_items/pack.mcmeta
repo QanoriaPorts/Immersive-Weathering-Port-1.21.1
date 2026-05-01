@@ -1,0 +1,7 @@
+{
+	"pack": {
+		"pack_format": 34,
+		"description": "Wax overlay on Waxed Iron block items.",
+		"supported_formats": {"min_inclusive": 34, "max_inclusive": 99}
+	}
+}

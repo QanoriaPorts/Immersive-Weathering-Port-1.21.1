@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "mossy_cobblestone",
+  "ingredients": [
+    "minecraft:cobblestone",
+    "immersive_weathering:moss_clump"
+  ],
+  "result": {
+    "id": "minecraft:mossy_cobblestone"
+  }
+}

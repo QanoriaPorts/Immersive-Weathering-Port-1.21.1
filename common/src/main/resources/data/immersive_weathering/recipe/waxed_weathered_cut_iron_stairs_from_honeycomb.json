@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "group": "waxed_cut_iron_stairs",
+  "ingredients": [
+    "immersive_weathering:weathered_cut_iron_stairs",
+    "#immersive_weathering:wax"
+  ],
+  "result": {
+    "id": "immersive_weathering:waxed_weathered_cut_iron_stairs"
+  }
+}

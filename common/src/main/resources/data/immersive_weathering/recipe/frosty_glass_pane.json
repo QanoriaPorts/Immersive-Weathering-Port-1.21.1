@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "immersive_weathering:frost",
+    "minecraft:glass_pane"
+  ],
+  "result": {
+    "id": "immersive_weathering:frosty_glass_pane"
+  }
+}
