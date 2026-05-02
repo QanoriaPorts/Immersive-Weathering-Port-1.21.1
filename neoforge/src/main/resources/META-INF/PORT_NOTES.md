@@ -11,7 +11,7 @@ credited per LGPL §5(a).
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/Immersive_weathering-V1.0.1-Beta.jar`.
+`neoforge/build/libs/Immersive-weathering-V1.0.1-Beta.jar`.
 
 ✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been

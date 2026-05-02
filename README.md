@@ -1,6 +1,6 @@
 # Immersive Weathering — NeoForge 1.21.1 Port
 
-A NeoForge 1.21.1 port of [Immersive Weathering](https://modrinth.com/mod/immersive_weathering) by Ordana, MehVahdJukaar, and Keybounce, brought up from Minecraft 1.20.1 / Forge to current standards.
+A NeoForge 1.21.1 port of [Immersive Weathering](https://modrinth.com/mod/immersive-weathering) by Ordana, MehVahdJukaar, and Keybounce, brought up from Minecraft 1.20.1 / Forge to current standards.
 
 Adds an abundance of natural weathering systems — iron rusting, moss spread on stone and brick families, additional soil types (Earthen Clay, Silt, Sandy Dirt, Permafrost, and grassy variants), frost growth, leaf piles, sand and snow layers, and more — to make worlds feel lived-in and aged.
 
