@@ -22,7 +22,12 @@ public abstract class BushBlockMixin extends Block {
 
     @Inject(method = "mayPlaceOn", at = @At(value = "HEAD"), cancellable = true, locals = LocalCapture.CAPTURE_FAILSOFT)
     protected void mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        // Defensive fallback: also accept any IW soil block directly. This
+        // survives third-party mods (e.g. Still Life) that ship a
+        // "replace: true" override of vanilla minecraft:dirt and wipe the IW
+        // additions out of BlockTags.DIRT.
         if (state.is(ModTags.FERTILE_BLOCKS) ||
+            state.is(ModTags.IW_SOIL_PLACEABLE) ||
             (state.is(ModTags.CRACKED) && state.isFaceSturdy(level, pos, Direction.UP)))
             cir.setReturnValue(true);
     }

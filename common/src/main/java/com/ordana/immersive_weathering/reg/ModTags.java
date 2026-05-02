@@ -32,6 +32,14 @@ public final class ModTags {
     public static final TagKey<Block> LEAFY_LEAVES = registerBlockTag("leaves_leafy");
     public static final TagKey<Block> PINE_LEAVES = registerBlockTag("leaves_pine");
     public static final TagKey<Block> DIRT_BASE_BLOCKS = registerBlockTag("dirt_base_blocks");
+    /**
+     * IW-namespaced fallback tag of every IW soil block that should accept
+     * bush/sapling/flower placement. Used by {@code BushBlockMixin} so that
+     * placement still works when another mod ships a {@code "replace": true}
+     * override of vanilla {@code minecraft:dirt} (e.g. Still Life), wiping
+     * the IW additions from the vanilla tag at runtime.
+     */
+    public static final TagKey<Block> IW_SOIL_PLACEABLE = registerBlockTag("iw_soil_placeable");
     public static final TagKey<Block> FIRE_REPLACEABLE = registerBlockTag("fire_replaceable");
     public static final TagKey<Block> SANDY = registerBlockTag("sandy");
     public static final TagKey<Block> SANDABLE = registerBlockTag("sandable");
