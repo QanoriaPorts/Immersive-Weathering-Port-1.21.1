@@ -11,9 +11,9 @@ credited per LGPL §5(a).
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/immersive_weathering-1.0.1-beta.jar`.
+`neoforge/build/libs/Immersive_weathering-V1.0.1-Beta.jar`.
 
-✅ **Smoke-tested in a running game** (both standalone and inside a 95-mod
+✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been
 fixed:
 
@@ -56,7 +56,7 @@ fixed:
   recipes (top-level `ingredient`). Idempotent — already-correct objects
   are passed through unchanged.
 
-## Runtime fixes applied during smoke test
+## Runtime fixes applied during testing
 
 - **Tag directory rename plural → singular.** Minecraft 1.21 renamed all
   vanilla tag directories (`tags/blocks/` → `tags/block/`, `tags/items/`

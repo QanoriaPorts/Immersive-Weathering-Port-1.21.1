@@ -54,8 +54,11 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    // Stability classifier — bump to "release" when promoting out of beta.
-    archiveClassifier = "beta"
+    // Released jar artifact name: Immersive_weathering-V<x.y.z>-<Stage>.jar
+    // Stage classifier bumps to "Release" when promoting out of beta.
+    archiveBaseName = "Immersive_weathering"
+    archiveVersion  = "V${rootProject.mod_version}"
+    archiveClassifier = "Beta"
 }
 
 jar {
