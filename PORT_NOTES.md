@@ -1,21 +1,60 @@
 # Port Notes — Immersive Weathering 1.20.1 Forge → 1.21.1 NeoForge
 
-This is an unofficial port of [Immersive Weathering](https://github.com/Ordana/immersive-weathering)
-from Minecraft 1.20.1 / Forge to Minecraft 1.21.1 / NeoForge. It is licensed
-under the same LGPL-3.0 as the upstream project.
+A NeoForge 1.21.1 port of [Immersive Weathering](https://github.com/Ordana/immersive-weathering)
+from Minecraft 1.20.1 / Forge. Licensed under the same LGPL-3.0 as the
+upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
+credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.21.1-2.0.5-port1`.
+**Port version:** `1.0.1` (beta).
 
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/immersive_weathering-1.21.1-2.0.5-port1-neoforge.jar`.
+`neoforge/build/libs/immersive_weathering-1.0.1-beta.jar`.
 
-✅ **Smoke-tested in a running game.** Iron rusting (land + water), moss
-spread on stone/cobblestone, and sapling/flower placement on the IW
-dirt-family blocks (Rooted Grass Block, Earthen Clay, Sandy Dirt, Silt,
-Permafrost, and the grassy variants) all verified working under play.
+✅ **Smoke-tested in a running game** (both standalone and inside a 95-mod
+modpack). All known runtime regressions surfaced during testing have been
+fixed:
+
+- Iron rusting on land + in water
+- Moss spread on stone, cobblestone, brick, and stone-brick families
+- Sapling, flower, and bush placement on Rooted Grass, Earthen Clay,
+  Sandy Dirt, Silt, Permafrost, and the grassy variants
+- Dead bush, bamboo (stalk + sapling), sugar cane placement on IW soils
+- Weeds (crop) growth ticks (NeoForge `CropBlock.getGrowthSpeed`
+  signature divergence handled)
+- All 349 IW recipes load cleanly under the 1.21 ingredient JSON format
+
+## V1.0.1 changes (V1.0.0 → V1.0.1)
+
+- **`fix(weeds)`**: replaced `CropBlock.getGrowthSpeed(this, level, pos)`
+  with an inlined fixed growth rate. NeoForge 21.1 patches that method's
+  signature (`Block` → `BlockState`) but Architectury common-mode compiles
+  against unpatched vanilla, so the call crashed at first chunk tick with
+  `NoSuchMethodError`. Behavior matches vanilla's default growth speed
+  (1.0) on a clean tile; differs from upstream only on hydrated farmland
+  where vanilla would have given a small speed bonus.
+- **`fix(soils-bush)`**: added IW-namespaced `iw_soil_placeable` tag and
+  fallback check in `BushBlockMixin`. Prevents sapling/flower/bush
+  placement from breaking when another mod ships a `replace: true`
+  override of vanilla `minecraft:dirt` (e.g. Still Life mod does this in
+  the wild).
+- **`fix(soils-other)`**: added `DeadBushBlockMixin`,
+  `BambooStalkBlockMixin`, `BambooSaplingBlockMixin`, and extended
+  `SugarCaneBlockMixin` to allow placement on the IW soil family using
+  the same `iw_soil_placeable` fallback. Sugar cane requires water
+  orthogonally adjacent below, mirroring vanilla. Bamboo additionally
+  required adding the IW soils to `minecraft:bamboo_plantable_on` because
+  `BambooStalkBlock.getStateForPlacement` checks that tag *before*
+  `canSurvive`.
+- **`fix(recipes)`**: migrated all 349 IW recipe JSONs from the 1.20.x
+  ingredient string-shorthand to the 1.21.x explicit Ingredient object
+  form. One-shot script preserved at repo root as `fix_recipes.py` for
+  documentation. Affects shaped recipes (`key`), shapeless recipes
+  (`ingredients`), and stonecutting/smelting/smoking/blasting/campfire
+  recipes (top-level `ingredient`). Idempotent — already-correct objects
+  are passed through unchanged.
 
 ## Runtime fixes applied during smoke test
 

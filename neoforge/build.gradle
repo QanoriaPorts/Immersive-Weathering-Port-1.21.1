@@ -54,7 +54,8 @@ shadowJar {
 remapJar {
     input.set shadowJar.archiveFile
     dependsOn shadowJar
-    archiveClassifier = "neoforge"
+    // Stability classifier — bump to "release" when promoting out of beta.
+    archiveClassifier = "beta"
 }
 
 jar {
