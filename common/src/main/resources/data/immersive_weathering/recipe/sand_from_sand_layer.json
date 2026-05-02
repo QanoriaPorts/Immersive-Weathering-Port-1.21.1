@@ -5,7 +5,9 @@
     "##"
   ],
   "key": {
-    "#": "immersive_weathering:sand_layer_block"
+    "#": {
+      "item": "immersive_weathering:sand_layer_block"
+    }
   },
   "result": {
     "id": "minecraft:sand",

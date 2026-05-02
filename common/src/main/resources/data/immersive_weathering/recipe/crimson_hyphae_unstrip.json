@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "wood_unstrip",
   "ingredients": [
-    "immersive_weathering:crimson_scales",
-    "minecraft:stripped_crimson_hyphae"
+    {
+      "item": "immersive_weathering:crimson_scales"
+    },
+    {
+      "item": "minecraft:stripped_crimson_hyphae"
+    }
   ],
   "result": {
     "id": "minecraft:crimson_hyphae"

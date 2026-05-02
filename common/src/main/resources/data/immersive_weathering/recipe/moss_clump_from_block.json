@@ -1,7 +1,9 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "minecraft:moss_block"
+    {
+      "item": "minecraft:moss_block"
+    }
   ],
   "result": {
     "id": "immersive_weathering:moss_clump",

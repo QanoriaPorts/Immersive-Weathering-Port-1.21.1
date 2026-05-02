@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:cherry_bark",
-    "minecraft:stripped_cherry_log"
+    {
+      "item": "immersive_weathering:cherry_bark"
+    },
+    {
+      "item": "minecraft:stripped_cherry_log"
+    }
   ],
   "result": {
     "id": "minecraft:cherry_log"

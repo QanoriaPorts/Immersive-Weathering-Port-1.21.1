@@ -4,7 +4,9 @@
     "SSS"
   ],
   "key": {
-    "S": "immersive_weathering:mossy_stone"
+    "S": {
+      "item": "immersive_weathering:mossy_stone"
+    }
   },
   "result": {
     "id": "immersive_weathering:mossy_stone_slab",

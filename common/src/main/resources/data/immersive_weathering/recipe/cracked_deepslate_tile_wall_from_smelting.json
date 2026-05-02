@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:deepslate_tile_wall",
+  "ingredient": {
+    "item": "minecraft:deepslate_tile_wall"
+  },
   "result": {
     "id": "immersive_weathering:cracked_deepslate_tile_wall"
   },

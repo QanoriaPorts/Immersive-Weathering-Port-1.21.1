@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#immersive_weathering:flammable_fences",
+  "ingredient": {
+    "tag": "immersive_weathering:flammable_fences"
+  },
   "result": {
     "id": "immersive_weathering:charred_fence"
   },

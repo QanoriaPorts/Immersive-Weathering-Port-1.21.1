@@ -1,8 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "minecraft:iron_door",
-    "#immersive_weathering:wax"
+    {
+      "item": "minecraft:iron_door"
+    },
+    {
+      "tag": "immersive_weathering:wax"
+    }
   ],
   "result": {
     "id": "immersive_weathering:waxed_iron_door"

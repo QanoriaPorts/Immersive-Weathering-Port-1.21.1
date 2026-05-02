@@ -5,7 +5,9 @@
     "##"
   ],
   "key": {
-    "#": "immersive_weathering:red_sand_layer_block"
+    "#": {
+      "item": "immersive_weathering:red_sand_layer_block"
+    }
   },
   "result": {
     "id": "minecraft:red_sand",

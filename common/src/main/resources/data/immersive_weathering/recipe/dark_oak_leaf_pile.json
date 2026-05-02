@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:dark_oak_leaves"
+    "#": {
+      "item": "minecraft:dark_oak_leaves"
+    }
   },
   "result": {
     "id": "immersive_weathering:dark_oak_leaf_pile",

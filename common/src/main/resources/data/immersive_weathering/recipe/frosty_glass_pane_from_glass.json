@@ -5,7 +5,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:frosty_glass"
+    "#": {
+      "item": "immersive_weathering:frosty_glass"
+    }
   },
   "result": {
     "id": "immersive_weathering:frosty_glass_pane",

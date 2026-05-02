@@ -5,8 +5,12 @@
     "S#"
   ],
   "key": {
-    "#": "minecraft:terracotta",
-    "S": "minecraft:dirt"
+    "#": {
+      "item": "minecraft:terracotta"
+    },
+    "S": {
+      "item": "minecraft:dirt"
+    }
   },
   "result": {
     "id": "immersive_weathering:earthen_clay",

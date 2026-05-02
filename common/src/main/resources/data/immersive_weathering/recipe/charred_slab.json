@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#immersive_weathering:flammable_slabs",
+  "ingredient": {
+    "tag": "immersive_weathering:flammable_slabs"
+  },
   "result": {
     "id": "immersive_weathering:charred_slab"
   },

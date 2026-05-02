@@ -5,8 +5,12 @@
     "I"
   ],
   "key": {
-    "#": "immersive_weathering:icicle",
-    "I": "minecraft:stick"
+    "#": {
+      "item": "immersive_weathering:icicle"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "immersive_weathering:ice_sickle"

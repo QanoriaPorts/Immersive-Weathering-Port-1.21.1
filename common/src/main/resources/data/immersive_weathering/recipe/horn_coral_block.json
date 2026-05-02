@@ -5,7 +5,9 @@
     "##"
   ],
   "key": {
-    "#": "minecraft:horn_coral"
+    "#": {
+      "item": "minecraft:horn_coral"
+    }
   },
   "result": {
     "id": "minecraft:horn_coral_block"

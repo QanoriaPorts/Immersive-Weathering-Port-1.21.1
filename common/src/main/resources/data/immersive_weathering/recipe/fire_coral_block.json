@@ -5,7 +5,9 @@
     "##"
   ],
   "key": {
-    "#": "minecraft:fire_coral"
+    "#": {
+      "item": "minecraft:fire_coral"
+    }
   },
   "result": {
     "id": "minecraft:fire_coral_block"

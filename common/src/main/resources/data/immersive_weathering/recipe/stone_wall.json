@@ -5,7 +5,9 @@
     "SSS"
   ],
   "key": {
-    "S": "minecraft:stone"
+    "S": {
+      "item": "minecraft:stone"
+    }
   },
   "result": {
     "id": "immersive_weathering:stone_wall",

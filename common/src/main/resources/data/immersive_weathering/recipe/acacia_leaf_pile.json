@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:acacia_leaves"
+    "#": {
+      "item": "minecraft:acacia_leaves"
+    }
   },
   "result": {
     "id": "immersive_weathering:acacia_leaf_pile",

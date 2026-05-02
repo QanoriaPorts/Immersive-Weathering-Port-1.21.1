@@ -7,7 +7,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:waxed_rusted_cut_iron"
+    "#": {
+      "item": "immersive_weathering:waxed_rusted_cut_iron"
+    }
   },
   "result": {
     "id": "immersive_weathering:waxed_rusted_cut_iron_stairs",

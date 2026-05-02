@@ -1,8 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "immersive_weathering:rusted_iron_bars",
-    "#immersive_weathering:wax"
+    {
+      "item": "immersive_weathering:rusted_iron_bars"
+    },
+    {
+      "tag": "immersive_weathering:wax"
+    }
   ],
   "result": {
     "id": "immersive_weathering:waxed_rusted_iron_bars"

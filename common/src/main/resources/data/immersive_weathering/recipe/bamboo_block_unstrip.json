@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:bamboo_bark",
-    "minecraft:stripped_bamboo_block"
+    {
+      "item": "immersive_weathering:bamboo_bark"
+    },
+    {
+      "item": "minecraft:stripped_bamboo_block"
+    }
   ],
   "result": {
     "id": "minecraft:bamboo_block"

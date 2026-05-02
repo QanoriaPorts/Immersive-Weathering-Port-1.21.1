@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:cherry_leaves"
+    "#": {
+      "item": "minecraft:cherry_leaves"
+    }
   },
   "result": {
     "id": "immersive_weathering:cherry_leaf_pile",

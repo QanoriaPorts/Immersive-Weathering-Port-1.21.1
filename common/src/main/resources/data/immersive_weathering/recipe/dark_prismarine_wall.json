@@ -5,7 +5,9 @@
     "SSS"
   ],
   "key": {
-    "S": "minecraft:dark_prismarine"
+    "S": {
+      "item": "minecraft:dark_prismarine"
+    }
   },
   "result": {
     "id": "immersive_weathering:dark_prismarine_wall",

@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:polished_blackstone_brick_wall",
+  "ingredient": {
+    "item": "minecraft:polished_blackstone_brick_wall"
+  },
   "result": {
     "id": "immersive_weathering:cracked_polished_blackstone_brick_wall"
   },

@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:warped_scales",
-    "minecraft:stripped_warped_stem"
+    {
+      "item": "immersive_weathering:warped_scales"
+    },
+    {
+      "item": "minecraft:stripped_warped_stem"
+    }
   ],
   "result": {
     "id": "minecraft:warped_stem"

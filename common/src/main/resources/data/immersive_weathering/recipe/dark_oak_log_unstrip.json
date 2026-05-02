@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:dark_oak_bark",
-    "minecraft:stripped_dark_oak_log"
+    {
+      "item": "immersive_weathering:dark_oak_bark"
+    },
+    {
+      "item": "minecraft:stripped_dark_oak_log"
+    }
   ],
   "result": {
     "id": "minecraft:dark_oak_log"

@@ -5,7 +5,9 @@
     "SS"
   ],
   "key": {
-    "S": "immersive_weathering:moss_clump"
+    "S": {
+      "item": "immersive_weathering:moss_clump"
+    }
   },
   "result": {
     "id": "minecraft:moss_block",

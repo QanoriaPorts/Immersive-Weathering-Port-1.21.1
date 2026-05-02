@@ -5,7 +5,9 @@
     "S"
   ],
   "key": {
-    "S": "minecraft:prismarine_brick_slab"
+    "S": {
+      "item": "minecraft:prismarine_brick_slab"
+    }
   },
   "result": {
     "id": "immersive_weathering:chiseled_prismarine_bricks",

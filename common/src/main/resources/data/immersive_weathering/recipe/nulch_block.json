@@ -5,8 +5,12 @@
     "#C"
   ],
   "key": {
-    "#": "#immersive_weathering:scales",
-    "C": "minecraft:netherrack"
+    "#": {
+      "tag": "immersive_weathering:scales"
+    },
+    "C": {
+      "item": "minecraft:netherrack"
+    }
   },
   "result": {
     "id": "immersive_weathering:nulch_block",

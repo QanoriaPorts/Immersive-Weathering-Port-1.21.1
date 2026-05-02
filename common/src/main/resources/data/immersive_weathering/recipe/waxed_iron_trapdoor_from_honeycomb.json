@@ -1,8 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "minecraft:iron_trapdoor",
-    "#immersive_weathering:wax"
+    {
+      "item": "minecraft:iron_trapdoor"
+    },
+    {
+      "tag": "immersive_weathering:wax"
+    }
   ],
   "result": {
     "id": "immersive_weathering:waxed_iron_trapdoor"

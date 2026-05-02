@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:plate_iron"
+    "#": {
+      "item": "immersive_weathering:plate_iron"
+    }
   },
   "result": {
     "id": "immersive_weathering:plate_iron_slab",

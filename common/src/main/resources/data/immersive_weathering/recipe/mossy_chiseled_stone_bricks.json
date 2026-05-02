@@ -5,7 +5,9 @@
     "#"
   ],
   "key": {
-    "#": "minecraft:mossy_stone_brick_slab"
+    "#": {
+      "item": "minecraft:mossy_stone_brick_slab"
+    }
   },
   "result": {
     "id": "immersive_weathering:mossy_chiseled_stone_bricks"

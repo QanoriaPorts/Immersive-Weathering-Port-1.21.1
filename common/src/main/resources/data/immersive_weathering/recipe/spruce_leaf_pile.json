@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:spruce_leaves"
+    "#": {
+      "item": "minecraft:spruce_leaves"
+    }
   },
   "result": {
     "id": "immersive_weathering:spruce_leaf_pile",

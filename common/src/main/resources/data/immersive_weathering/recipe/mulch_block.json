@@ -5,8 +5,12 @@
     "#C"
   ],
   "key": {
-    "#": "#immersive_weathering:bark",
-    "C": "minecraft:dirt"
+    "#": {
+      "tag": "immersive_weathering:bark"
+    },
+    "C": {
+      "item": "minecraft:dirt"
+    }
   },
   "result": {
     "id": "immersive_weathering:mulch_block",

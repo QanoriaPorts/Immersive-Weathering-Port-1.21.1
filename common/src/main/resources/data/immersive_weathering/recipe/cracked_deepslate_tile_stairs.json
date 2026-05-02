@@ -6,7 +6,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:cracked_deepslate_tiles"
+    "#": {
+      "item": "minecraft:cracked_deepslate_tiles"
+    }
   },
   "result": {
     "id": "immersive_weathering:cracked_deepslate_tile_stairs",

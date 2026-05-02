@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:birch_bark",
-    "minecraft:stripped_birch_log"
+    {
+      "item": "immersive_weathering:birch_bark"
+    },
+    {
+      "item": "minecraft:stripped_birch_log"
+    }
   ],
   "result": {
     "id": "minecraft:birch_log"

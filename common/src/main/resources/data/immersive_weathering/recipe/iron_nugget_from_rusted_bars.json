@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "immersive_weathering:rusted_iron_bars",
+  "ingredient": {
+    "item": "immersive_weathering:rusted_iron_bars"
+  },
   "result": {
     "id": "minecraft:iron_nugget"
   },

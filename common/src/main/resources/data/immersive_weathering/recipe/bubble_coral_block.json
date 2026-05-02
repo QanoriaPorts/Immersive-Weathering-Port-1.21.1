@@ -5,7 +5,9 @@
     "##"
   ],
   "key": {
-    "#": "minecraft:bubble_coral"
+    "#": {
+      "item": "minecraft:bubble_coral"
+    }
   },
   "result": {
     "id": "minecraft:bubble_coral_block"

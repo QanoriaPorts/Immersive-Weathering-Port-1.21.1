@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:end_stone_brick_slab",
+  "ingredient": {
+    "item": "minecraft:end_stone_brick_slab"
+  },
   "result": {
     "id": "immersive_weathering:cracked_end_stone_brick_slab"
   },

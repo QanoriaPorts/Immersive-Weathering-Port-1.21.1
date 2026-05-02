@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "mossy_bricks",
   "ingredients": [
-    "minecraft:bricks",
-    "minecraft:vine"
+    {
+      "item": "minecraft:bricks"
+    },
+    {
+      "item": "minecraft:vine"
+    }
   ],
   "result": {
     "id": "immersive_weathering:mossy_bricks"

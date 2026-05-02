@@ -5,8 +5,12 @@
     "#"
   ],
   "key": {
-    "S": "minecraft:string",
-    "#": "immersive_weathering:tallow"
+    "S": {
+      "item": "minecraft:string"
+    },
+    "#": {
+      "item": "immersive_weathering:tallow"
+    }
   },
   "result": {
     "id": "minecraft:candle"

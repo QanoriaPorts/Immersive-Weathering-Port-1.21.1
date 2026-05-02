@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "minecraft:cracked_nether_bricks"
+    "#": {
+      "item": "minecraft:cracked_nether_bricks"
+    }
   },
   "result": {
     "id": "immersive_weathering:cracked_nether_brick_slab",

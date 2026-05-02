@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "wood_from_bark",
   "ingredients": [
-    "immersive_weathering:dark_oak_bark",
-    "minecraft:dark_oak_log"
+    {
+      "item": "immersive_weathering:dark_oak_bark"
+    },
+    {
+      "item": "minecraft:dark_oak_log"
+    }
   ],
   "result": {
     "id": "minecraft:dark_oak_wood"

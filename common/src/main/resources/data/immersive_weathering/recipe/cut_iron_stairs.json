@@ -6,7 +6,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:cut_iron"
+    "#": {
+      "item": "immersive_weathering:cut_iron"
+    }
   },
   "result": {
     "id": "immersive_weathering:cut_iron_stairs",

@@ -7,7 +7,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:waxed_plate_iron"
+    "#": {
+      "item": "immersive_weathering:waxed_plate_iron"
+    }
   },
   "result": {
     "id": "immersive_weathering:waxed_plate_iron_stairs",

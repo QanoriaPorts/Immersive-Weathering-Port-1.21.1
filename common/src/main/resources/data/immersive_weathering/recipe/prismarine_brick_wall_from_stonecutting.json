@@ -1,6 +1,8 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:prismarine_bricks",
+  "ingredient": {
+    "item": "minecraft:prismarine_bricks"
+  },
   "result": {
     "id": "immersive_weathering:prismarine_brick_wall",
     "count": 1

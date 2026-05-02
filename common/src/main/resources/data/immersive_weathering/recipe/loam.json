@@ -6,18 +6,32 @@
   ],
   "key": {
     "A": [
-      "#minecraft:sand",
-      "immersive_weathering:sandy_dirt"
+      {
+        "tag": "minecraft:sand"
+      },
+      {
+        "item": "immersive_weathering:sandy_dirt"
+      }
     ],
     "C": [
-      "minecraft:clay",
-      "immersive_weathering:earthen_clay"
+      {
+        "item": "minecraft:clay"
+      },
+      {
+        "item": "immersive_weathering:earthen_clay"
+      }
     ],
     "S": [
-      "immersive_weathering:silt",
-      "minecraft:mud"
+      {
+        "item": "immersive_weathering:silt"
+      },
+      {
+        "item": "minecraft:mud"
+      }
     ],
-    "D": "minecraft:dirt"
+    "D": {
+      "item": "minecraft:dirt"
+    }
   },
   "result": {
     "id": "immersive_weathering:loam",

@@ -5,7 +5,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:waxed_exposed_cut_iron"
+    "#": {
+      "item": "immersive_weathering:waxed_exposed_cut_iron"
+    }
   },
   "result": {
     "id": "immersive_weathering:waxed_exposed_cut_iron_slab",

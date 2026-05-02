@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:stone_brick_stairs",
+  "ingredient": {
+    "item": "minecraft:stone_brick_stairs"
+  },
   "result": {
     "id": "immersive_weathering:cracked_stone_brick_stairs"
   },

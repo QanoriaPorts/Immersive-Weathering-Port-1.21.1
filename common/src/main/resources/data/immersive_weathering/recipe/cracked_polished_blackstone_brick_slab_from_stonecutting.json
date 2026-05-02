@@ -1,6 +1,8 @@
 {
   "type": "minecraft:stonecutting",
-  "ingredient": "minecraft:cracked_polished_blackstone_bricks",
+  "ingredient": {
+    "item": "minecraft:cracked_polished_blackstone_bricks"
+  },
   "result": {
     "id": "immersive_weathering:cracked_polished_blackstone_brick_slab",
     "count": 2

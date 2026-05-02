@@ -5,7 +5,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:cracked_end_stone_bricks"
+    "#": {
+      "item": "immersive_weathering:cracked_end_stone_bricks"
+    }
   },
   "result": {
     "id": "immersive_weathering:cracked_end_stone_brick_wall",

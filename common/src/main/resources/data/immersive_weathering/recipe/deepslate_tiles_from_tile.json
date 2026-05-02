@@ -5,7 +5,9 @@
     "SS"
   ],
   "key": {
-    "S": "immersive_weathering:deepslate_tile"
+    "S": {
+      "item": "immersive_weathering:deepslate_tile"
+    }
   },
   "result": {
     "id": "minecraft:deepslate_tiles",

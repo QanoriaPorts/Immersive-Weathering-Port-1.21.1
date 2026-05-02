@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:nether_brick_wall",
+  "ingredient": {
+    "item": "minecraft:nether_brick_wall"
+  },
   "result": {
     "id": "immersive_weathering:cracked_nether_brick_wall"
   },

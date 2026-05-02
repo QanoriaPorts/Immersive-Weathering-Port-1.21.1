@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#immersive_weathering:weathered_iron_smelting",
+  "ingredient": {
+    "tag": "immersive_weathering:weathered_iron_smelting"
+  },
   "result": {
     "id": "minecraft:iron_ingot"
   },

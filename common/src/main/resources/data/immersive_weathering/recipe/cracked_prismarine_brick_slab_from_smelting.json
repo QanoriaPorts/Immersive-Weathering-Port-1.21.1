@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "minecraft:prismarine_brick_slab",
+  "ingredient": {
+    "item": "minecraft:prismarine_brick_slab"
+  },
   "result": {
     "id": "immersive_weathering:cracked_prismarine_brick_slab"
   },

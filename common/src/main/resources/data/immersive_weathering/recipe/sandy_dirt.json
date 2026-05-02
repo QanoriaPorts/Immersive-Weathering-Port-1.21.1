@@ -5,8 +5,12 @@
     "S#"
   ],
   "key": {
-    "#": "minecraft:sand",
-    "S": "minecraft:dirt"
+    "#": {
+      "item": "minecraft:sand"
+    },
+    "S": {
+      "item": "minecraft:dirt"
+    }
   },
   "result": {
     "id": "immersive_weathering:sandy_dirt",

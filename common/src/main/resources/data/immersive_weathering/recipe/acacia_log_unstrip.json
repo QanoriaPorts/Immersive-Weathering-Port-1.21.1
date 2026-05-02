@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "log_unstrip",
   "ingredients": [
-    "immersive_weathering:acacia_bark",
-    "minecraft:stripped_acacia_log"
+    {
+      "item": "immersive_weathering:acacia_bark"
+    },
+    {
+      "item": "minecraft:stripped_acacia_log"
+    }
   ],
   "result": {
     "id": "minecraft:acacia_log"

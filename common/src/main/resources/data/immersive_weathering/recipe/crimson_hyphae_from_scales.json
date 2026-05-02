@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "wood_from_bark",
   "ingredients": [
-    "immersive_weathering:crimson_scales",
-    "minecraft:crimson_stem"
+    {
+      "item": "immersive_weathering:crimson_scales"
+    },
+    {
+      "item": "minecraft:crimson_stem"
+    }
   ],
   "result": {
     "id": "minecraft:crimson_hyphae"

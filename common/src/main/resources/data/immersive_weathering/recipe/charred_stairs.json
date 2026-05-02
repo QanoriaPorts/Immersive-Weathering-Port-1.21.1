@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#immersive_weathering:flammable_stairs",
+  "ingredient": {
+    "tag": "immersive_weathering:flammable_stairs"
+  },
   "result": {
     "id": "immersive_weathering:charred_stairs"
   },

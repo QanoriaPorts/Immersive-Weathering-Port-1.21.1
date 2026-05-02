@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "immersive_weathering:moss_clump",
+  "ingredient": {
+    "item": "immersive_weathering:moss_clump"
+  },
   "result": {
     "id": "minecraft:green_dye"
   },

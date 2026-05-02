@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "#immersive_weathering:flammable_planks",
+  "ingredient": {
+    "tag": "immersive_weathering:flammable_planks"
+  },
   "result": {
     "id": "immersive_weathering:charred_planks"
   },

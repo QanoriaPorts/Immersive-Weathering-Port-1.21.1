@@ -4,7 +4,9 @@
     "###"
   ],
   "key": {
-    "#": "immersive_weathering:azalea_flowers"
+    "#": {
+      "item": "immersive_weathering:azalea_flowers"
+    }
   },
   "result": {
     "id": "immersive_weathering:azalea_flower_pile",

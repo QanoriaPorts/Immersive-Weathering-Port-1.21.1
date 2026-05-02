@@ -1,6 +1,8 @@
 {
   "type": "minecraft:smelting",
-  "ingredient": "immersive_weathering:vitrified_sand",
+  "ingredient": {
+    "item": "immersive_weathering:vitrified_sand"
+  },
   "result": {
     "id": "minecraft:glass"
   },

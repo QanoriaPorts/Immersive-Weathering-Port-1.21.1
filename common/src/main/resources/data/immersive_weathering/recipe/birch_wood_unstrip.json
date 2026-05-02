@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shapeless",
   "group": "wood_unstrip",
   "ingredients": [
-    "immersive_weathering:birch_bark",
-    "minecraft:stripped_birch_wood"
+    {
+      "item": "immersive_weathering:birch_bark"
+    },
+    {
+      "item": "minecraft:stripped_birch_wood"
+    }
   ],
   "result": {
     "id": "minecraft:birch_wood"
