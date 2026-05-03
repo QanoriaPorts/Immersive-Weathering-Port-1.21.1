@@ -8,12 +8,12 @@ import net.minecraft.world.level.Level;
 
 public class IceSickleItem extends SwordItem {
 
-    // 1.21.1 SwordItem(Tier, Properties); damage/speed are configured via
-    // DataComponents (Item.Properties.attributes(SwordItem.createAttributes(...))),
-    // not constructor args. The legacy (int, float) values are no longer used here;
-    // wire them through Properties on the registration site if you need custom stats.
-    public IceSickleItem(Tier tier, int unusedDamage, float unusedSpeed, Properties properties) {
-        super(tier, properties);
+    // 1.21.1: SwordItem(Tier, Properties) only attaches the TOOL component
+    // (cobweb-mining + sword_efficient). It does NOT auto-set attribute
+    // modifiers, so we are free to bake custom damage/speed in via
+    // Properties.attributes(...) BEFORE delegating to super.
+    public IceSickleItem(Tier tier, int damageBonus, float attackSpeed, Properties properties) {
+        super(tier, properties.attributes(SwordItem.createAttributes(tier, damageBonus, attackSpeed)));
     }
 
     @Override

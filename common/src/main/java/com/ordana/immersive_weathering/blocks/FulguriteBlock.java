@@ -3,7 +3,9 @@ package com.ordana.immersive_weathering.blocks;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -16,6 +18,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.entity.projectile.ThrownTrident;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AmethystClusterBlock;
@@ -97,21 +102,24 @@ public class FulguriteBlock extends AmethystClusterBlock {
 
     @Override
     public void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
-        // Channeling check via the trident's enchantment level was simplified;
-        // enchantments became data-driven in 1.20.5+ and isChanneling() was
-        // removed/internal. Just gate on thundering + trident projectile.
-        if (level.isThundering() && projectile instanceof ThrownTrident) {
-            BlockPos blockPos = hit.getBlockPos();
-            if (level.canSeeSky(blockPos)) {
-                LightningBolt lightningEntity = EntityType.LIGHTNING_BOLT.create(level);
-                lightningEntity.moveTo(Vec3.atBottomCenterOf(blockPos.above()));
-                Entity entity = projectile.getOwner();
-                lightningEntity.setCause(entity instanceof ServerPlayer ? (ServerPlayer) entity : null);
-                level.addFreshEntity(lightningEntity);
-                level.playSound(null, blockPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.WEATHER, 5.0F, 1.0F);
+        // 1.21.x: enchantments are data-driven. Look up Channeling via the
+        // level's registry and check the trident's weapon stack.
+        if (level.isThundering() && projectile instanceof ThrownTrident trident) {
+            Holder<Enchantment> channeling = level.registryAccess()
+                    .registryOrThrow(Registries.ENCHANTMENT)
+                    .getHolderOrThrow(Enchantments.CHANNELING);
+            if (EnchantmentHelper.getItemEnchantmentLevel(channeling, trident.getWeaponItem()) > 0) {
+                BlockPos blockPos = hit.getBlockPos();
+                if (level.canSeeSky(blockPos)) {
+                    LightningBolt lightningEntity = EntityType.LIGHTNING_BOLT.create(level);
+                    lightningEntity.moveTo(Vec3.atBottomCenterOf(blockPos.above()));
+                    Entity entity = projectile.getOwner();
+                    lightningEntity.setCause(entity instanceof ServerPlayer ? (ServerPlayer) entity : null);
+                    level.addFreshEntity(lightningEntity);
+                    level.playSound(null, blockPos, SoundEvents.TRIDENT_THUNDER.value(), SoundSource.WEATHER, 5.0F, 1.0F);
+                }
             }
         }
-
     }
 
     @Override

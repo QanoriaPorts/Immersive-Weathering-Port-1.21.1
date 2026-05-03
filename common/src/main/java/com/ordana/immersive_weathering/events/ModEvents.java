@@ -74,6 +74,7 @@ public class ModEvents {
         EVENTS.add(ModEvents::rustSponging);
         EVENTS.add(ModEvents::blockSanding);
         EVENTS.add(ModEvents::blockSnowing);
+        EVENTS.add(ModEvents::hangingRootsWallPlacement);
     }
 
 
@@ -417,6 +418,58 @@ public class ModEvents {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
+    }
+
+    /**
+     * Restores upstream {@code CeilingAndWallBlockItem} behaviour. When the
+     * player right-clicks with vanilla {@code minecraft:hanging_roots}, prefer
+     * placing the IW wall variant on a vertical surface; fall through to
+     * vanilla ceiling placement otherwise. NeoForge 1.21's {@code RegisterEvent}
+     * cannot replace the existing {@code minecraft:hanging_roots} item entry,
+     * so this is wired through the right-click event chain instead.
+     */
+    private static InteractionResult hangingRootsWallPlacement(Item item, ItemStack stack, BlockPos pos, BlockState state,
+                                                                Player player, Level level, InteractionHand hand, BlockHitResult hitResult) {
+        if (item != Items.HANGING_ROOTS) return InteractionResult.PASS;
+
+        net.minecraft.world.item.context.BlockPlaceContext context =
+                new net.minecraft.world.item.context.BlockPlaceContext(player, hand, stack, hitResult);
+        if (!context.canPlace()) return InteractionResult.PASS;
+
+        Block wallBlock = ModBlocks.HANGING_ROOTS_WALL.get();
+        BlockState wallState = wallBlock.getStateForPlacement(context);
+
+        BlockPos placePos = context.getClickedPos();
+        BlockState chosen = null;
+        for (net.minecraft.core.Direction direction : context.getNearestLookingDirections()) {
+            if (direction == net.minecraft.core.Direction.DOWN) continue;
+            if (direction == net.minecraft.core.Direction.UP) {
+                // Ceiling case: let vanilla place the regular hanging roots block.
+                return InteractionResult.PASS;
+            }
+            if (wallState != null && wallState.canSurvive(level, placePos)) {
+                chosen = wallState;
+                break;
+            }
+        }
+        if (chosen == null) return InteractionResult.PASS;
+        if (!level.isUnobstructed(chosen, placePos, net.minecraft.world.phys.shapes.CollisionContext.empty())) {
+            return InteractionResult.PASS;
+        }
+
+        if (!level.isClientSide) {
+            level.setBlock(placePos, chosen, 11);
+            net.minecraft.world.level.block.SoundType soundType = chosen.getSoundType();
+            level.playSound(null, placePos, soundType.getPlaceSound(), SoundSource.BLOCKS,
+                    (soundType.getVolume() + 1f) / 2f, soundType.getPitch() * 0.8f);
+            level.gameEvent(player, GameEvent.BLOCK_PLACE, placePos);
+            if (player instanceof ServerPlayer serverPlayer) {
+                CriteriaTriggers.PLACED_BLOCK.trigger(serverPlayer, placePos, stack);
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+            }
+            if (!player.getAbilities().instabuild) stack.shrink(1);
+        }
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @EventCalled

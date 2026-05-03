@@ -6,12 +6,12 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.1` (beta).
+**Port version:** `1.0.2` (beta).
 
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/Immersive-weathering-V1.0.1-Beta.jar`.
+`neoforge/build/libs/Immersive-weathering-V1.0.2-Beta.jar`.
 
 ✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been
@@ -25,6 +25,81 @@ fixed:
 - Weeds (crop) growth ticks (NeoForge `CropBlock.getGrowthSpeed`
   signature divergence handled)
 - All 349 IW recipes load cleanly under the 1.21 ingredient JSON format
+
+## V1.0.2 changes (V1.0.1 → V1.0.2)
+
+Followup pass closing the remaining shippable divergences from upstream
+1.20.1-2.0.5. The first three items came from the V1.0.1 → V1.0.2 pre-pass
+(fuels / ice sickle / channeling); the last three come from the second
+V1.0.2 pass that audited the rest of the file against the upstream
+`1.20.0-multiloader` branch on
+[github.com/Silversmith-Mods/Immersive-Weathering](https://github.com/Silversmith-Mods/Immersive-Weathering).
+
+- **`fix(fuels)`**: restored per-item furnace burn times via the NeoForge
+  data-map system. Added `data/immersive_weathering/data_maps/item/furnace_fuels.json`
+  with the upstream burn times: charred log 1600, charred planks 400,
+  charred slab/stairs/fence/fence_gate 200. Note: PORT_NOTES previously
+  referenced `neoforge/fuels.json` — that path was wrong; the correct
+  NeoForge 1.21.1 location is `data_maps/item/furnace_fuels.json`.
+- **`fix(ice-sickle)`**: restored Ice Sickle damage (+5) and attack speed
+  (-1.0) attributes. NeoForge 1.21.1's `SwordItem(Tier, Properties)`
+  constructor only attaches the `TOOL` data component (cobweb-mining +
+  sword_efficient) — it does NOT auto-set attribute modifiers — so we
+  pre-bake them via `Properties.attributes(SwordItem.createAttributes(...))`
+  inside `IceSickleItem`'s constructor before delegating to super.
+- **`fix(channeling)`**: restored Channeling enchantment check on the
+  trident in `FulguriteBlock.onProjectileHit`. Looks up the Channeling
+  enchantment via the level's registry as a `Holder<Enchantment>`, then
+  calls `EnchantmentHelper.getItemEnchantmentLevel(channeling, trident.getWeaponItem())`.
+  Lightning now triggers only on Channeling-enchanted trident hits during
+  thunderstorms, matching upstream behavior.
+- **`fix(particles)`**: restored client-side leaf-decay particles and
+  sound. `SendCustomParticlesPacket` now implements Moonlight 2.29.x's
+  `Message` interface (which extends vanilla
+  `CustomPacketPayload`), is registered through `NetworkHelper.addNetworkRegistration`
+  in `NetworkHandler.init()`, and dispatches via
+  `NetworkHelper.sendToAllClientPlayersInRange`. The client-side particle
+  + sound logic that used to live in the packet's `clientStuff()` was
+  moved to a sibling `ClientHandler` class so dedicated servers don't
+  link `Minecraft`. The new payload id is `immersive_weathering:custom_particles`.
+- **`fix(hanging-roots-wall)`**: restored vanilla `minecraft:hanging_roots`
+  wall placement on a vertical surface. NeoForge 1.21's `RegisterEvent`
+  cannot replace an existing item registration the way Forge 1.20.1 did
+  via `event.getForgeRegistry().register(...)`, so the `CeilingAndWallBlockItem`
+  override approach won't work. Instead, a new `hangingRootsWallPlacement`
+  entry was added to the `ModEvents.onBlockCLicked` interaction chain;
+  it intercepts right-clicks holding `Items.HANGING_ROOTS`, runs the
+  upstream `getNearestLookingDirections` selection logic against
+  `HANGING_ROOTS_WALL.getStateForPlacement`, and places the wall block
+  with full sound, gameevent, criterion, and stack-shrink behaviour.
+  Ceiling clicks fall through to vanilla unchanged.
+- **`fix(brick-tag-namespace)`**: migrated
+  `data/forge/tags/item/ingots/brick.json` → `data/c/tags/item/bricks.json`.
+  NeoForge 1.21.1 still honors the legacy `forge:` namespace for
+  back-compat, but `c:bricks` is the community-standard tag in 1.21+
+  and is the namespace that downstream mods register against.
+
+Discovery during this pass: Icicle and Ice Sickle food were *already*
+working in V1.0.1 — they're wired through `Properties.food(ModFoods.ICICLE)`
+at registration. PORT_NOTES had erroneously listed them as broken.
+
+Discovery during the second pass: the codec dispatch chains in
+`AreaCondition`, `IPositionRuleTest`, `IFluidGenerator`, `BuiltinBlockGrowth`,
+and `BlockPropertyTest.PropPredicate` had all already been correctly
+migrated to `MapCodec` during the V1.0.0 build-fix work — they are not
+stubbed. PORT_NOTES claiming they were "always-error / always-empty
+codecs" was inaccurate. The variant types (`AreaCheck`, `NeighborCheck`,
+`SelfFluidGenerator`, `OtherFluidGenerator`, `BurnMossGenerator`,
+`AndTest`, `OrTest`, `NandTest`, etc.) all expose `MapCodec<T>` as
+required by 1.21's dispatch contract and are registered against their
+respective `Mod*` registry maps.
+
+Confirmed not portable in V1.0.2: the upstream `1.20.0-multiloader`
+source has no implementation of `Charred.interactWithProjectile` —
+all six `Charred*Block` subclasses call it from `onProjectileHit` /
+`entityInside`, but the interface definition was never present in any
+checked-in revision (1.18.2 / 1.19.2 / 1.20.0 multiloader / Inferno
+branches were all checked). The port retains a no-op default.
 
 ## V1.0.1 changes (V1.0.0 → V1.0.1)
 
@@ -93,45 +168,55 @@ Per LGPL-3.0 §5, this fork:
 
 ## Behavioral changes vs. upstream 1.20.1
 
-These are intentional regressions taken to keep the port shippable; each is
-a candidate for follow-up work:
+The remaining intentional divergence after the V1.0.2 pass:
 
-- **Vanilla `minecraft:hanging_roots` wall placement removed.** NeoForge
-  1.21.1's `RegisterEvent` does not support replacing existing registry
-  entries. The `CeilingAndWallBlockItem` class is retained for future
-  reuse via mixin or for mod-namespaced blocks.
-- **Custom particle network packets are no-op.** Moonlight 2.29.x replaced
-  `ChannelHandler` / `Message` with `NetworkHelper` + `CustomPacketPayload.TypeAndCodec`.
-  `NetworkHandler` and `SendCustomParticlesPacket` are stubbed; leaf-decay
-  and similar effects no longer push particles to the client. Block state
-  transitions, sounds, and everything not particle-network-driven still work.
-- **Per-item fuel times no longer registered in code.** Moonlight removed
-  `FuelBlockItem`; in 1.21.1 fuel durations are data-driven via
-  `data/<modid>/neoforge/fuels.json`. Existing burnable items fall back to
-  plain `BlockItem` and need a datapack entry to retain fuel value.
-- **Custom sword damage/speed values dropped on `IceSickleItem`.** 1.21.1
-  `SwordItem(Tier, Properties)` no longer takes int/float ctor args; the
-  values are now configured via `Item.Properties.attributes(SwordItem.createAttributes(...))`.
-  Re-introduce by editing `IceSickleItem`'s registration site if desired.
-- **Edible item flag dropped on `IcicleItem` and `IceSickleItem`.** The
-  `isEdible` / `getFoodProperties` overrides were removed; food is now a
-  `DataComponent` set via `Item.Properties.food(...)` at registration. Wire
-  via `ModItems` if you want them edible again.
-- **Trident channeling check simplified in `FulguriteBlock`.** Vanilla's
-  `ThrownTrident.isChanneling()` was removed; the lightning-on-trident-hit
-  feature now triggers on any trident hit during a thunderstorm rather than
-  specifically on channeling-enchanted tridents.
-- **Codec dispatch chains stubbed.** The five places that built
-  `Codec<X>` via `Codec.dispatch` / `Codec.STRING.partialDispatch`
-  (`AreaCondition`, `IPositionRuleTest`, `IFluidGenerator`,
-  `BuiltinBlockGrowth`, and `BlockPropertyTest.PropPredicate`) were stubbed
-  to always-error / always-empty codecs because 1.21 changed `dispatch` to
-  require `MapCodec` for the per-variant codec. The data-driven systems
-  built on them are inert; revisit once the variant codecs are migrated to
-  `MapCodec` and dispatch is rewired.
-- **Charred projectile interaction is a no-op stub.** The original
-  `interactWithProjectile` body was missing in the imported source; the
-  default added here does nothing. Charred blocks ignore projectile hits.
+- **Charred projectile interaction is a no-op stub.** The
+  `Charred.interactWithProjectile(level, state, projectile, pos)` method
+  is called by every `Charred*Block.onProjectileHit` and
+  `entityInside`, but no implementation of it exists anywhere in the
+  upstream source — the 1.18.2 multiloader, 1.19.2 multiloader, 1.20.0
+  multiloader, and Inferno branches were all checked, and none of them
+  define a body. The port retains a no-op default so the call sites
+  compile; charred blocks therefore ignore projectile hits, matching
+  what an upstream 2.0.5 build would do at runtime.
+
+### Resolved in V1.0.2
+
+- ~~Per-item fuel times not registered in code.~~ Restored via
+  `data/immersive_weathering/data_maps/item/furnace_fuels.json`.
+- ~~Custom sword damage/speed dropped on `IceSickleItem`.~~ Restored
+  via `Properties.attributes(SwordItem.createAttributes(...))` inside
+  the constructor.
+- ~~Trident channeling check simplified.~~ Restored by looking up the
+  Channeling enchantment as `Holder<Enchantment>` from the level's
+  registry and gating on `EnchantmentHelper.getItemEnchantmentLevel`.
+- ~~Edible item flag dropped on `IcicleItem` / `IceSickleItem`.~~ This
+  was a documentation error — both items had been wired with
+  `Properties.food(ModFoods.ICICLE)` at registration since V1.0.0. The
+  PORT_NOTES claim that they were broken was inaccurate.
+- ~~Vanilla `minecraft:hanging_roots` wall placement removed.~~ Restored
+  via the `hangingRootsWallPlacement` entry in the `ModEvents.onBlockCLicked`
+  interaction chain. The `CeilingAndWallBlockItem` class in
+  `neoforge/src/main/java/.../neoforge/` is no longer wired in but is
+  preserved for reference; the actual wall-placement decision now happens
+  inside `ModEvents`.
+- ~~Custom particle network packets are no-op.~~ Restored via Moonlight
+  2.29.x's `Message` interface. `SendCustomParticlesPacket` now serializes
+  through `RegistryFriendlyByteBuf` and is registered as a client-bound
+  payload via `NetworkHelper.addNetworkRegistration` in
+  `NetworkHandler.init()`. Leaf-decay particles + sounds fire on clients
+  again.
+- ~~Codec dispatch chains stubbed.~~ Verification pass found these to be
+  already correctly migrated to `MapCodec` in V1.0.0. The variant types
+  (`AreaCheck`, `NeighborCheck`, `SelfFluidGenerator`,
+  `OtherFluidGenerator`, `BurnMossGenerator`, plus the
+  `IPositionRuleTest` family) all expose `MapCodec<T>`, and dispatch in
+  `AreaCondition`, `IFluidGenerator`, `IPositionRuleTest`, and
+  `BuiltinBlockGrowth` correctly hands those map codecs to
+  `Codec.dispatch` / `partialDispatch`. The PORT_NOTES claim of
+  always-error / always-empty codecs was inaccurate.
+- ~~`forge:ingots/brick` tag.~~ Migrated to `c:bricks` (community-standard
+  1.21+ namespace).
 
 ## Build environment
 
@@ -147,20 +232,16 @@ a candidate for follow-up work:
 
 ## Known follow-ups (not yet done)
 
-- `data/forge/tags/item/ingots/brick.json` still uses the legacy `forge:`
-  tag namespace. NeoForge 1.21.1 honors it for backwards compatibility,
-  but the community-standard `c:` namespace is preferred. Migrate
-  `forge:ingots/brick` → `c:bricks` (note plural rename).
 - The `fabric/` module's mixins target 1.20.1 vanilla method signatures.
   They may need adjustment for 1.21.1 (e.g. `FarmBlock.fallOn` parameters).
   This port was scoped to NeoForge; the fabric module is preserved for
   future updating but `:fabric:build` was not verified.
 - Confirm `BlockColors`/`ItemColors` accessor mixin field names against
   current 1.21.1 mappings — those may have shifted to `IdMapper<...>`.
-- Re-implement the codec dispatch stubs (above) so the data-driven systems
-  work again.
-- Re-wire `NetworkHandler` against `NetworkHelper.addNetworkRegistration`
-  + `CustomPacketPayload.TypeAndCodec` to restore networked particles.
+- Charred-block projectile interaction body remains a no-op default —
+  upstream never had one. If a real behaviour is desired (e.g. lit
+  projectile ignites the block), it would have to be designed from
+  scratch rather than ported.
 
 ## Building
 
