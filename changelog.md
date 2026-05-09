@@ -1,15 +1,19 @@
-# V1.0.0
+# V1.0.0 (beta)
 
-Initial Fabric 1.21.1 release.
+Initial Fabric 1.21.1 release of the QanoriaPorts Immersive Weathering
+port, branched from the NeoForge port's V1.0.3 baseline. Both loaders
+share the same `common/` source tree, so every runtime fix that landed
+across V1.0.0 → V1.0.3 on the NeoForge side (recipe ingredient
+migration, tag dir plural→singular rename, soil placement family
+extensions, weeds growth, ice sickle attributes,
+channeling-on-fulgurite, leaf-decay particle networking, hanging-roots
+wall placement, `c:bricks` tag namespace, and the V1.0.3
+axe-on-blocks-without-items crash hotfix) is included verbatim. From
+here on the two loaders track each other content-wise but version
+their own lifecycles independently — a Fabric-only hotfix bumps the
+Fabric line without touching NeoForge's number, and vice versa.
 
-Built on top of the same V1.0.2 baseline as the NeoForge port — every
-runtime fix that landed there (recipe ingredient migration, tag dir
-plural→singular rename, soil placement family extensions, weeds growth,
-ice sickle attributes, channeling-on-fulgurite, leaf-decay particle
-networking, hanging-roots wall placement, `c:bricks` tag namespace) is
-included.
-
-## Fabric-specific notes
+## Fabric-specific loader translation
 
 - **Per-item furnace burn times** are wired through Fabric's
   `FuelRegistry`, not a data-map. `regBurnableBlockItem` collects the
@@ -32,13 +36,19 @@ included.
   ceiling falls through to the `CeilingAndWallBlockItem.useOn` flow.
 - **`forge:ingots/brick` tag** is shipped as `c:bricks` (the
   community-standard 1.21+ namespace).
+- **`HumanoidArmorLayer` mixin** updated for 1.21.1's signature change
+  on `renderArmorPiece` — `getArmorFoilBuffer` dropped its `noEntity`
+  flag, and `Model.renderToBuffer` now packs RGBA into a single ARGB
+  int. Flower Crown render layer matches upstream.
 
 ## Build environment
 
 - Minecraft `1.21.1`
-- Fabric Loader `>=0.16.9`
+- Fabric Loader `0.16.9`
 - Fabric API `0.115.0+1.21.1`
 - Java `21`
+- Gradle `8.11.1`
 - Architectury Loom `1.9-SNAPSHOT`
+- Architectury Plugin `3.4-SNAPSHOT`
 - Architectury API `13.0.8`
 - Moonlight `1.21-2.29.33`

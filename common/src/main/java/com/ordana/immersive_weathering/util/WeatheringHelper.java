@@ -135,26 +135,27 @@ public class WeatheringHelper {
     }
 
     /**
-     * Moonlight 3.x's {@code BlockSetAPI.getBlockTypeOf} throws an
-     * {@code IllegalStateException} for any {@link Block} that doesn't have
-     * an associated {@link Item} (e.g. Bountiful Fares' {@code hanging_apple}
-     * — placed only by fruit growth, never given as a BlockItem). The
-     * axe-stripping / bark-repair right-click chain hands every targeted
-     * block to this lookup, so a third-party block without an item would
-     * crash the right-click. Wrap the call to fall back to "no wood type".
+     * Safe wrapper around {@link BlockSetAPI#getBlockTypeOf(Block, Class)} that
+     * returns {@code null} instead of throwing when a third-party block has no
+     * registered Item. Moonlight 2.29.x's lookup throws
+     * {@code IllegalStateException} for blocks that aren't backed by an item
+     * (e.g. Bountiful Fares' {@code hanging_lemon}, which is placed by tree
+     * generation only and has no inventory item). Crashed the right-click path
+     * with iron axe + fruit blocks; reverting to vanilla axe behaviour for
+     * those blocks is the correct fallback.
      */
     @Nullable
-    private static WoodType safeWoodTypeOf(Block block) {
+    private static WoodType safeGetWoodType(Block block) {
         try {
             return BlockSetAPI.getBlockTypeOf(block, WoodType.class);
-        } catch (IllegalStateException ignored) {
+        } catch (IllegalStateException e) {
             return null;
         }
     }
 
     @Nullable
     public static Item getBarkToStrip(BlockState normalLog) {
-        WoodType woodType = safeWoodTypeOf(normalLog.getBlock());
+        WoodType woodType = safeGetWoodType(normalLog.getBlock());
         if (woodType != null) {
             boolean log = false;
 
@@ -178,7 +179,7 @@ public class WeatheringHelper {
     }
 
     public static Optional<Pair<Item, Block>> getBarkForStrippedLog(BlockState stripped) {
-        WoodType woodType = safeWoodTypeOf(stripped.getBlock());
+        WoodType woodType = safeGetWoodType(stripped.getBlock());
         if (woodType != null) {
             Object log = null;
             if (woodType.getChild("stripped_log") == stripped.getBlock()) {
@@ -203,7 +204,7 @@ public class WeatheringHelper {
     }
 
     public static Optional<Pair<Item, Block>> getWoodFromLog(BlockState sourceLog) {
-        WoodType woodType = safeWoodTypeOf(sourceLog.getBlock());
+        WoodType woodType = safeGetWoodType(sourceLog.getBlock());
         if (woodType != null) {
             Object log = null;
             if (woodType.getChild("log") == sourceLog.getBlock()) {

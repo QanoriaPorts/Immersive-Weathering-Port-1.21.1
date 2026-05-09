@@ -6,14 +6,14 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.0`.
+**Port version:** `1.0.0` (initial Fabric release, tracks NeoForge port V1.0.3 content baseline).
 
 ## Status
 
 `./gradlew :fabric:build` produces the Fabric jar at
-`fabric/build/libs/immersive_weathering-V1.0.0-fabric.jar`.
+`fabric/build/libs/immersive_weathering-V1.0.0-fabric-beta.jar`.
 
-The runtime baseline is the same V1.0.2 ship from the NeoForge port —
+The runtime baseline is the same V1.0.3 ship from the NeoForge port —
 every behavioural fix landed there is preserved through Architectury
 common-mode, since this port shares the same `common/` source tree.
 
@@ -101,4 +101,4 @@ Per LGPL-3.0 §5, this fork:
 ./gradlew :fabric:build
 ```
 
-The output jar appears at `fabric/build/libs/immersive_weathering-V1.0.0-fabric.jar`.
+The output jar appears at `fabric/build/libs/immersive_weathering-V1.0.0-fabric-beta.jar`.
