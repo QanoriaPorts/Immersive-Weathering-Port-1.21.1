@@ -134,9 +134,28 @@ public class WeatheringHelper {
         return Optional.ofNullable(LEAVES_TO_PILES.get().get(b));
     }
 
+    /**
+     * Safe wrapper around {@link BlockSetAPI#getBlockTypeOf(Block, Class)} that
+     * returns {@code null} instead of throwing when a third-party block has no
+     * registered Item. Moonlight 2.29.x's lookup throws
+     * {@code IllegalStateException} for blocks that aren't backed by an item
+     * (e.g. Bountiful Fares' {@code hanging_lemon}, which is placed by tree
+     * generation only and has no inventory item). Crashed the right-click path
+     * with iron axe + fruit blocks; reverting to vanilla axe behaviour for
+     * those blocks is the correct fallback.
+     */
+    @Nullable
+    private static WoodType safeGetWoodType(Block block) {
+        try {
+            return BlockSetAPI.getBlockTypeOf(block, WoodType.class);
+        } catch (IllegalStateException e) {
+            return null;
+        }
+    }
+
     @Nullable
     public static Item getBarkToStrip(BlockState normalLog) {
-        WoodType woodType = BlockSetAPI.getBlockTypeOf(normalLog.getBlock(), WoodType.class);
+        WoodType woodType = safeGetWoodType(normalLog.getBlock());
         if (woodType != null) {
             boolean log = false;
 
@@ -160,7 +179,7 @@ public class WeatheringHelper {
     }
 
     public static Optional<Pair<Item, Block>> getBarkForStrippedLog(BlockState stripped) {
-        WoodType woodType = BlockSetAPI.getBlockTypeOf(stripped.getBlock(), WoodType.class);
+        WoodType woodType = safeGetWoodType(stripped.getBlock());
         if (woodType != null) {
             Object log = null;
             if (woodType.getChild("stripped_log") == stripped.getBlock()) {
@@ -185,7 +204,7 @@ public class WeatheringHelper {
     }
 
     public static Optional<Pair<Item, Block>> getWoodFromLog(BlockState sourceLog) {
-        WoodType woodType = BlockSetAPI.getBlockTypeOf(sourceLog.getBlock(), WoodType.class);
+        WoodType woodType = safeGetWoodType(sourceLog.getBlock());
         if (woodType != null) {
             Object log = null;
             if (woodType.getChild("log") == sourceLog.getBlock()) {

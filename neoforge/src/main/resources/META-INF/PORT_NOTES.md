@@ -6,12 +6,12 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.2` (beta).
+**Port version:** `1.0.3` (beta).
 
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/Immersive-weathering-V1.0.2-Beta.jar`.
+`neoforge/build/libs/Immersive-weathering-V1.0.3-Beta.jar`.
 
 ✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been
@@ -25,6 +25,35 @@ fixed:
 - Weeds (crop) growth ticks (NeoForge `CropBlock.getGrowthSpeed`
   signature divergence handled)
 - All 349 IW recipes load cleanly under the 1.21 ingredient JSON format
+
+## V1.0.3 changes (V1.0.2 → V1.0.3)
+
+Hotfix release. One crash fix; nothing else changed.
+
+- **`fix(axe-on-blocks-without-items)`**: defensive try/catch around
+  Moonlight 2.29's `BlockSetAPI.getBlockTypeOf(block, WoodType.class)`.
+  The Moonlight call throws `IllegalStateException` when the queried
+  block has no registered Item — and some mods ship blocks with no
+  inventory item (e.g. Bountiful Fares' `bountifulfares:hanging_lemon`,
+  a fruit block placed by tree generation only). Right-clicking such a
+  block with an axe ran IW's `axeStripping` handler, which forwarded
+  through `WeatheringHelper.getBarkToStrip` into the throwing Moonlight
+  call and crashed the client. Added a private
+  `safeGetWoodType(Block)` helper in `WeatheringHelper` that wraps the
+  Moonlight call in a try/catch and returns `null` on the throw. All
+  three call sites (`getBarkToStrip`, `getBarkForStrippedLog`,
+  `getWoodFromLog`) route through it. Vanilla axe behaviour takes over
+  for any block IW doesn't recognise as a log/wood family.
+
+## Known external issues (not IW)
+
+- **Bountiful Fares 3.0.8 + NeoForge 21.1.228**: Bountiful Fares'
+  `PicketsBlock.getCollisionShape` throws `IncompatibleClassChangeError`
+  against vanilla `IndirectMerger.forMergedIndexes` during world creation
+  (`Blocks.rebuildCache` → `Shapes.or` chain). Reproduces with IW
+  disabled; not an IW × Bountiful Fares interaction. Workaround for
+  downstream users: update Bountiful Fares to a build compiled against
+  the same NeoForge minor or downgrade NeoForge to ≤ 21.1.219.
 
 ## V1.0.2 changes (V1.0.1 → V1.0.2)
 

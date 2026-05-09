@@ -1,3 +1,26 @@
+# V1.0.3 (beta)
+
+Hotfix on top of V1.0.2. One crash fix surfaced after the V1.0.2 release.
+
+## Crash fix
+
+- **Right-clicking a third-party "block-without-item" with an axe no
+  longer crashes.** IW's `axeStripping` event handler was calling
+  `WeatheringHelper.getBarkToStrip(state)`, which forwarded to
+  Moonlight's `BlockSetAPI.getBlockTypeOf(block, WoodType.class)`.
+  Moonlight 2.29 throws `IllegalStateException` when the queried block
+  has no registered Item — and some mods ship blocks with no inventory
+  item (e.g. Bountiful Fares' `bountifulfares:hanging_lemon`, a fruit
+  block placed by tree generation only). Trying to right-click the
+  fruit with an iron axe crashed the client.
+- **Fix**: added a private `safeGetWoodType(Block)` helper in
+  `WeatheringHelper` that wraps the Moonlight call in a try/catch and
+  returns `null` on the throw. All three call sites
+  (`getBarkToStrip`, `getBarkForStrippedLog`, `getWoodFromLog`) now
+  route through it. Vanilla axe behaviour takes over for blocks IW
+  doesn't recognise as a log/wood family — including any third-party
+  block that doesn't have a corresponding inventory item.
+
 # V1.0.2 (beta)
 
 Closes the remaining intentional regressions from V1.0.1. After V1.0.2 the
