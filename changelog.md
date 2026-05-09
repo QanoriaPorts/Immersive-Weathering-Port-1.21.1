@@ -1,3 +1,27 @@
+# V1.0.1 (beta)
+
+Hotfix on top of V1.0.0. Loot-table predicate format migration ported
+across from the NeoForge port's V1.0.4 release (originally contributed
+by Succubyte via PR #1).
+
+## Loot table fix
+
+- **Silk Touch detection on IW blocks now works on 1.21.1.** 60 IW
+  block loot tables used the pre-1.20.5 enchantment predicate shape
+  (`"enchantments": [{ "enchantment": "minecraft:silk_touch" }]`),
+  which 1.21.1 silently fails to match. Result: every block that
+  should have dropped a different item with Silk Touch (leaf piles,
+  frosty glass, snowy stone family, grassy soil family, charred
+  blocks, thin ice, soot, frost, icicles, and more) was always
+  giving the no-silk-touch loot regardless of tool. Migrated all 60
+  files to the 1.21+ component-based predicate shape
+  (`"components": { "minecraft:enchantments": { "levels": { "minecraft:silk_touch": 1 } } }`).
+  Verified in-game across leaf piles, grassy permafrost, frosty
+  glass, and snowy stone bricks on the NeoForge port's V1.0.4 build
+  before forwarding to Fabric.
+
+Thanks to Succubyte for the catch and the fix.
+
 # V1.0.0 (beta)
 
 Initial Fabric 1.21.1 release of the QanoriaPorts Immersive Weathering

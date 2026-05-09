@@ -6,16 +6,32 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.0` (initial Fabric release, tracks NeoForge port V1.0.3 content baseline).
+**Port version:** `1.0.1` (hotfix, tracks NeoForge port V1.0.4 content baseline).
 
 ## Status
 
 `./gradlew :fabric:build` produces the Fabric jar at
-`fabric/build/libs/immersive_weathering-V1.0.0-fabric-beta.jar`.
+`fabric/build/libs/immersive_weathering-V1.0.1-fabric-beta.jar`.
 
-The runtime baseline is the same V1.0.3 ship from the NeoForge port —
-every behavioural fix landed there is preserved through Architectury
+The runtime baseline is the V1.0.4 ship from the NeoForge port - every
+behavioural fix landed there is preserved through Architectury
 common-mode, since this port shares the same `common/` source tree.
+
+## V1.0.1 changes (V1.0.0 -> V1.0.1)
+
+Hotfix release. One bug fix forwarded from NeoForge port V1.0.4
+(originally contributed by Succubyte via PR #1 on the NeoForge port).
+
+- **`fix(loot-tables)`**: 60 IW block loot tables had their Silk Touch
+  predicates in the pre-1.20.5 enchantment-array shape, which 1.21.1
+  silently fails to match. Result: every block that should have given
+  a different drop with Silk Touch was always giving the no-silk-touch
+  fallback regardless of tool. All 60 files migrated to the 1.21+
+  component-based predicate shape. Affected categories: leaf piles
+  (10), frost / frosty glass (3), snowy stone family (16), grassy soil
+  family (5), cracked / charred / sandy / soot / icicle / thin ice /
+  weeds / waxed iron variants (the remainder). Verified in-game on the
+  NeoForge V1.0.4 build before forwarding to Fabric.
 
 ## Loader translation (NeoForge → Fabric)
 
