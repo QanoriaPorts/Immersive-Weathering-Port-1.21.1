@@ -6,12 +6,12 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.3` (beta).
+**Port version:** `1.0.4` (beta).
 
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/Immersive-weathering-V1.0.3-Beta.jar`.
+`neoforge/build/libs/Immersive-weathering-V1.0.4-Beta.jar`.
 
 ✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been
@@ -25,6 +25,31 @@ fixed:
 - Weeds (crop) growth ticks (NeoForge `CropBlock.getGrowthSpeed`
   signature divergence handled)
 - All 349 IW recipes load cleanly under the 1.21 ingredient JSON format
+- Silk Touch detection on the 60 IW blocks that gate drops on it
+  (V1.0.4 fix from PR #1, contributed by Succubyte)
+
+## V1.0.4 changes (V1.0.3 → V1.0.4)
+
+Hotfix release. One bug fix contributed by Succubyte via PR #1.
+
+- **`fix(loot-tables)`**: 60 IW block loot tables had their Silk Touch
+  predicates in the pre-1.20.5 enchantment-array shape, which 1.21.1
+  silently fails to match. Result: every block that should have given
+  a different drop with Silk Touch was always giving the no-silk-touch
+  fallback regardless of tool. All 60 files migrated to the 1.21+
+  component-based predicate shape:
+  ```
+  "components": {
+    "minecraft:enchantments": {
+      "levels": { "minecraft:silk_touch": 1 }
+    }
+  }
+  ```
+  Affected categories: leaf piles (10), frost / frosty glass (3),
+  snowy stone family (16), grassy soil family (5), cracked / charred
+  / sandy / soot / icicle / thin ice / weeds / waxed iron variants
+  (the remainder). Verified in-game across leaf piles, grassy
+  permafrost, frosty glass, and snowy stone bricks.
 
 ## V1.0.3 changes (V1.0.2 → V1.0.3)
 
