@@ -1,0 +1,37 @@
+# gradle
+.gradle/
+build/
+out/
+classes/
+*/.gradle/
+*/build/
+*/run/
+*/out/
+
+# eclipse
+*.launch
+
+# idea
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+*.DS_Store
+
+# project-local: dev runtime profile
+run/
+
+# project-local: upstream historical prebuilt jars (208 MB, not needed for build)
+iw versions/
+
+# project-local: backup of the pre-V1 working git history
+.git_backup/

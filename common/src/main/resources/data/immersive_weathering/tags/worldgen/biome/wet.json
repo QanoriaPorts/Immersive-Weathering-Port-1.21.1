@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:is_wet",
+      "required": false
+    },
+    {
+      "id": "#c:climate_wet",
+      "required": false
+    },
+    "minecraft:swamp",
+    "minecraft:jungle",
+    "minecraft:sparse_jungle"
+  ]
+}

@@ -1,0 +1,110 @@
+plugins {
+    id "io.github.goooler.shadow"
+}
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    shadowCommon {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+
+    common(project(path: ":common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+
+    modLocalRuntime "dev.emi:emi-fabric:${rootProject.emi_version}"
+
+    // Moonlight (Fabric 1.21.1) — version slug provisional, verify before redistribution.
+    modImplementation "maven.modrinth:moonlight:${rootProject.moonlight_version}-fabric"
+
+    modImplementation "maven.modrinth:modmenu:${rootProject.modmenu_version}"
+
+    modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_version}") {
+        exclude group: 'net.fabricmc.fabric-api'
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mod_id", rootProject.mod_id
+    inputs.property "moonlight_version", rootProject.moonlight_version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version, "mod_id": rootProject.mod_id, "moonlight_version": rootProject.moonlight_version
+    }
+}
+
+shadowJar {
+    exclude "architectury.common.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier = "dev-shadow"
+}
+
+remapJar {
+    injectAccessWidener = true
+    input.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveBaseName = rootProject.mod_id
+    archiveVersion  = "V${rootProject.mod_version}"
+    archiveClassifier = "fabric-beta"
+}
+
+jar {
+    archiveClassifier = "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+        skip()
+    }
+}
+
+publishing {
+    publications {
+        mavenFabric(MavenPublication) {
+            artifactId = rootProject.mod_id + "-" + project.name
+            from components.java
+        }
+    }
+
+    repositories {
+        // Add repositories to publish to here.
+    }
+}
+
+repositories {
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.terraformersmc.com/releases" }
+    maven {
+        url "https://api.modrinth.com/maven"
+        content { includeGroup "maven.modrinth" }
+    }
+}

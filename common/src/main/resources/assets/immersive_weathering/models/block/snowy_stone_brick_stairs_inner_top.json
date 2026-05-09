@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "top": "minecraft:block/stone_bricks",
+    "bottom": "immersive_weathering:block/snowy_stone_bricks_top",
+    "side": "immersive_weathering:block/snowy_stone_bricks_side"
+  }
+}

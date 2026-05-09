@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:cracked_stone_bricks"
+  },
+  "result": {
+    "id": "immersive_weathering:cracked_stone_brick_slab",
+    "count": 2
+  }
+}

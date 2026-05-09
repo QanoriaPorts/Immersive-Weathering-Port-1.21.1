@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "immersive_weathering:red_sand_layer_block"
+    }
+  },
+  "result": {
+    "id": "minecraft:red_sand",
+    "count": 1
+  }
+}

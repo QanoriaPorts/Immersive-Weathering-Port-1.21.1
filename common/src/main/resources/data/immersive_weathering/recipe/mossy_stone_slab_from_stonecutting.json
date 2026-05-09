@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "immersive_weathering:mossy_stone"
+  },
+  "result": {
+    "id": "immersive_weathering:mossy_stone_slab",
+    "count": 2
+  }
+}
