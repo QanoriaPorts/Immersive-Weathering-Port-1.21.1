@@ -165,7 +165,18 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
                 if (!alreadyHasTextureAtLocation(manager, textureRes)) {
 
                     Palette targetPalette = Palette.fromImage(baseTexture);
-                    if (targetPalette.getDarkest().getOccurrence() > 5) {
+                    // Only extrapolate a synthetic darker color when the palette
+                    // is rich enough for the HCL extrapolation to stay in-gamut.
+                    // Small / low-chroma leaf textures (e.g. No Man's Land's
+                    // autumnal_oak_leaves.png with only 5 brown colors, used by
+                    // pear_fruit_leaves) make Palette.increaseDown extrapolate
+                    // out of the brown gamut and skid into a cold-hue synthetic
+                    // color, which then floods the transparent pixels of the
+                    // heavy variant and produces a blue cast on thick piles.
+                    // For palettes that small, fall back to the real darkest
+                    // entry, which fills transparency with the actual leaf
+                    // shadow color and looks correct.
+                    if (targetPalette.size() > 6 && targetPalette.getDarkest().getOccurrence() > 5) {
                         targetPalette.increaseDown();
                     }
                     var dark = targetPalette.getDarkest();

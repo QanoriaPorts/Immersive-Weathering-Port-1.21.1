@@ -1,3 +1,29 @@
+# V1.0.5 (beta)
+
+Hotfix on top of V1.0.4. One visual fix for heavy leaf pile textures
+on small-palette modded leaves.
+
+## Heavy leaf pile texture fix
+
+- **Pear leaf pile (and any other small-palette modded leaves) no
+  longer turns blue at high layer counts.** IW's
+  `ClientDynamicResourcesHandler` generates a "heavy" texture variant
+  for leaf piles at LAYERS 5-8 by extracting the leaves' palette and
+  filling transparent pixels with the darkest color, giving thick
+  piles a shadowed interior. When the source palette has more than
+  five copies of its darkest color, the algorithm calls
+  `Palette.increaseDown()` to *extrapolate* an even-darker synthetic
+  color in HCL space and use that as the fill. For leaves with a tiny,
+  low-chroma palette - e.g. No Man's Land's `pear_fruit_leaves`, which
+  shares the `autumnal_oak_leaves.png` texture (5 brown colors only) -
+  the HCL extrapolation lands outside the source gamut and clamps into
+  a cold-hue synthetic, flooding the transparent pixels with blue.
+- **Fix**: guard the `increaseDown()` call with a palette-size check
+  (`targetPalette.size() > 6`). For small palettes, fall back to the
+  real darkest entry, which fills transparency with the actual leaf
+  shadow color and stays in-gamut. Vanilla oak / birch / jungle / etc.
+  leaves have richer palettes and remain unchanged.
+
 # V1.0.4 (beta)
 
 Hotfix on top of V1.0.3. Loot-table predicate format migration

@@ -6,12 +6,12 @@ upstream project; original authors (Ordana, MehVahdJukaar, Keybounce)
 credited per LGPL §5(a).
 
 **Upstream baseline:** `1.20.1-2.0.5` (commit imported as `vendor:` in git log).
-**Port version:** `1.0.3` (beta).
+**Port version:** `1.0.5` (beta).
 
 ## Status
 
 ✅ **`./gradlew :neoforge:build` succeeds.** The mod jar is produced at
-`neoforge/build/libs/Immersive-weathering-V1.0.3-Beta.jar`.
+`neoforge/build/libs/Immersive-weathering-V1.0.5-neoforge-beta.jar`.
 
 ✅ **Verified in a running game** (both standalone and inside a 95-mod
 modpack). All known runtime regressions surfaced during testing have been
@@ -25,6 +25,60 @@ fixed:
 - Weeds (crop) growth ticks (NeoForge `CropBlock.getGrowthSpeed`
   signature divergence handled)
 - All 349 IW recipes load cleanly under the 1.21 ingredient JSON format
+- Silk Touch detection on the 60 IW blocks that gate drops on it
+  (V1.0.4 fix from PR #1, contributed by Succubyte)
+
+## V1.0.5 changes (V1.0.4 → V1.0.5)
+
+Hotfix release. One visual fix for heavy leaf pile textures on
+small-palette modded leaves.
+
+- **`fix(heavy-leaf-pile-palette)`**: `ClientDynamicResourcesHandler`
+  generates a "heavy" texture variant for leaf piles at LAYERS 5-8 by
+  loading the leaves texture, extracting its palette, optionally
+  extrapolating a darker synthetic color via `Palette.increaseDown()`
+  (HCL gradient extrapolation past the current darkest entry), and
+  filling all transparent pixels with that color via Moonlight's
+  `TextureImage.removeAlpha(int)` (actually
+  `TextureOps.makeOpaque` - misleading name; it fills transparency
+  with the supplied color and forces opaque pixels to full alpha).
+
+  For leaves with a tiny, low-chroma palette - notably No Man's Land's
+  `pear_fruit_leaves`, which shares the `autumnal_oak_leaves.png`
+  texture (5 brown colors, ~33% transparent pixels) - the HCL
+  extrapolation lands outside the source palette's brown gamut and
+  clamps into a cold-hue synthetic. That synthetic color then floods
+  the transparent pixels of the heavy variant, producing a noticeable
+  blue cast on thick pear leaf piles in game.
+
+  Fix: guard the `increaseDown()` call with `targetPalette.size() > 6`.
+  For palettes with six or fewer distinct colors, fall back to the
+  real darkest entry, which fills transparency with the actual leaf
+  shadow color and stays in-gamut. Vanilla oak / birch / jungle / etc.
+  leaves have richer palettes and remain unchanged.
+
+## V1.0.4 changes (V1.0.3 → V1.0.4)
+
+Hotfix release. One bug fix contributed by Succubyte via PR #1.
+
+- **`fix(loot-tables)`**: 60 IW block loot tables had their Silk Touch
+  predicates in the pre-1.20.5 enchantment-array shape, which 1.21.1
+  silently fails to match. Result: every block that should have given
+  a different drop with Silk Touch was always giving the no-silk-touch
+  fallback regardless of tool. All 60 files migrated to the 1.21+
+  component-based predicate shape:
+  ```
+  "components": {
+    "minecraft:enchantments": {
+      "levels": { "minecraft:silk_touch": 1 }
+    }
+  }
+  ```
+  Affected categories: leaf piles (10), frost / frosty glass (3),
+  snowy stone family (16), grassy soil family (5), cracked / charred
+  / sandy / soot / icicle / thin ice / weeds / waxed iron variants
+  (the remainder). Verified in-game across leaf piles, grassy
+  permafrost, frosty glass, and snowy stone bricks.
 
 ## V1.0.3 changes (V1.0.2 → V1.0.3)
 
